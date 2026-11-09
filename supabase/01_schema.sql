@@ -34,12 +34,16 @@ create table if not exists public.daily_content (
   title             text not null,
   objective         text,
   body_md           text,                              -- teoría (Markdown + LaTeX)
-  practice_md       text,                              -- práctica guiada
-  estimated_minutes smallint not null default 60,
+  workshop_md       text,                              -- taller práctico: cálculo guiado + Python/software
+  practice_md       text,                              -- práctica con lápiz y papel
+  estimated_minutes smallint not null default 120,
   is_ready          boolean generated always as (body_md is not null) stored,
   updated_at        timestamptz not null default now()
 );
 create index if not exists daily_content_module_idx on public.daily_content(module_id);
+-- Migración desde la versión de 1 h/día
+alter table public.daily_content add column if not exists workshop_md text;
+alter table public.daily_content alter column estimated_minutes set default 120;
 
 create table if not exists public.questions (
   id               uuid primary key default gen_random_uuid(),
@@ -258,7 +262,7 @@ begin
      title = excluded.title, objective = excluded.objective;
 end $$;
 
--- Un día completo: {"day":1,"minutes":60,"body":"...","practice":"...",
+-- Un día completo: {"day":1,"minutes":120,"body":"...","workshop":"...","practice":"...",
 --   "questions":[{k,d,t,p,o,c,v,tol,u,e}]}   (k=external_key, t=qtype, p=prompt, o=options,
 --   c=correct_index, v=answer_value, u=unit, e=explanation)
 create or replace function private.upsert_day(p jsonb)
@@ -267,8 +271,8 @@ declare
   v_day int := (p->>'day')::int;
 begin
   update public.daily_content
-     set body_md = p->>'body', practice_md = p->>'practice',
-         estimated_minutes = coalesce((p->>'minutes')::smallint, 60), updated_at = now()
+     set body_md = p->>'body', workshop_md = p->>'workshop', practice_md = p->>'practice',
+         estimated_minutes = coalesce((p->>'minutes')::smallint, 120), updated_at = now()
    where day_number = v_day;
   if not found then raise exception 'El día % no existe en el catálogo', v_day; end if;
 
@@ -286,6 +290,46 @@ begin
      difficulty_level = excluded.difficulty_level, qtype = excluded.qtype, prompt_md = excluded.prompt_md,
      options = excluded.options, correct_index = excluded.correct_index, answer_value = excluded.answer_value,
      tolerance_pct = excluded.tolerance_pct, unit = excluded.unit, explanation_md = excluded.explanation_md;
+end $$;
+
+-- 5c. SINCRONIZACIÓN CON GITHUB
+-- Descarga el contenido publicado en supabase/json/ del repositorio y lo carga.
+-- Uso (SQL Editor):  select private.sync_from_github();
+-- Requiere la extensión "http" y que el repositorio sea público.
+do $$ begin
+  create extension if not exists http with schema extensions;
+exception when others then
+  raise notice 'Extensión http no disponible: la sincronización con GitHub no funcionará (%).', sqlerrm;
+end $$;
+
+create or replace function private.fetch_json(p_url text)
+returns jsonb language plpgsql set search_path = '' as $$
+declare
+  v_status  int;
+  v_content text;
+begin
+  select h.status, h.content into v_status, v_content from extensions.http_get(p_url) as h;
+  if v_status is distinct from 200 then
+    raise exception 'No se pudo descargar % (HTTP %)', p_url, v_status;
+  end if;
+  return v_content::jsonb;
+end $$;
+
+create or replace function private.sync_from_github(
+  p_base text default 'https://raw.githubusercontent.com/abelolivalopez-sketch/verdadero-ingeniero/main/supabase/json')
+returns text language plpgsql set search_path = '' as $$
+declare
+  v_index jsonb := private.fetch_json(p_base || '/index.json');
+  v_day   int;
+  v_n     int := 0;
+begin
+  perform private.upsert_catalog(private.fetch_json(p_base || '/catalogo.json'));
+  for v_day in select (jsonb_array_elements_text(v_index->'days'))::int loop
+    perform private.upsert_day(private.fetch_json(p_base || '/dia_' || lpad(v_day::text, 3, '0') || '.json'));
+    v_n := v_n + 1;
+  end loop;
+  return format('Sincronizado: catálogo de %s días y %s días con contenido completo',
+                (select count(*) from public.daily_content), v_n);
 end $$;
 
 -- ---------------------------------------------------------------------
@@ -349,8 +393,8 @@ declare
   v_target  int[];
   v_need    int;
   d         int;
-  c_day_questions constant int := 10;   -- preguntas del día por examen
-  c_max_review    constant int := 3;    -- preguntas de repaso añadidas
+  c_day_questions constant int := 15;   -- preguntas del día por examen (2 h/día)
+  c_max_review    constant int := 5;    -- preguntas de repaso añadidas
 begin
   if v_uid is null then raise exception 'not_authenticated'; end if;
   insert into public.profiles (id) values (v_uid) on conflict (id) do nothing;
@@ -377,10 +421,11 @@ begin
   delete from public.exam_history where user_id = v_uid and completed_at is null;
 
   -- Reparto por dificultad según el nivel del usuario: [básico, intermedio, avanzado]
+  -- (cada día tiene 7 preguntas de cada nivel)
   v_target := case v_p.current_level
-                when 1 then array[5,3,2]
-                when 2 then array[2,5,3]
-                else        array[1,4,5] end;
+                when 1 then array[7,5,3]
+                when 2 then array[4,7,4]
+                else        array[3,5,7] end;
 
   for d in 1..3 loop
     v_ids := v_ids || coalesce(array(

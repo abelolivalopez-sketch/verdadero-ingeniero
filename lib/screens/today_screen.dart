@@ -163,7 +163,7 @@ class _TodayScreenState extends State<TodayScreen> {
             child: OutlinedButton.icon(
               onPressed: l.isReady ? () => _openLesson(l.dayNumber, d.profile.currentDay) : null,
               icon: const Icon(Icons.menu_book_outlined),
-              label: Text(l.isReady ? 'Estudiar la teoría' : 'Temario en preparación'),
+              label: Text(l.isReady ? 'Teoría y taller práctico' : 'Temario en preparación'),
             ),
           ),
         ]),
@@ -181,7 +181,7 @@ class _TodayScreenState extends State<TodayScreen> {
               child: Text(
                 d.passedToday
                     ? 'Has aprobado hoy. Si quieres, sigue con el día ${l.dayNumber}.'
-                    : '10 preguntas adaptadas a tu nivel${d.reviewsDue > 0 ? ' + repasos de días anteriores' : ''}. Necesitas un 80 % para avanzar.',
+                    : '15 preguntas adaptadas a tu nivel${d.reviewsDue > 0 ? ' + hasta 5 repasos de días anteriores' : ''}. Necesitas un 80 % para avanzar.',
               ),
             ),
           ]),

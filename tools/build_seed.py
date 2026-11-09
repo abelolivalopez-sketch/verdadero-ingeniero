@@ -12,9 +12,11 @@ Formato de un día (content/days/day_001.md):
 
   ---
   day: 1
-  minutes: 60
+  minutes: 120
   ---
   # Teoría en Markdown, fórmulas con \\( inline \\) y \\[ bloque \\]
+  <!-- TALLER -->
+  Cálculo guiado paso a paso + código Python + reto
   <!-- PRACTICA -->
   Ejercicios guiados...
   <!-- PREGUNTAS -->
@@ -39,6 +41,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
 OUT_DIR = ROOT / "supabase"
 TAG = "$vi$"
+MIN_PER_LEVEL = 7   # el examen de 2 h sirve 15 preguntas del día; con 7 por nivel hay variedad al repetir
 
 
 def q(s):
@@ -160,18 +163,22 @@ def load_days(errors):
         meta = yaml.safe_load(m.group(1)) or {}
         day = int(meta["day"])
         rest = text[m.end():]
-        parts = re.split(r"^<!--\s*(PRACTICA|PREGUNTAS)\s*-->\s*$", rest, flags=re.M)
-        body, practice, qblock = parts[0].strip(), None, ""
+        parts = re.split(r"^<!--\s*(TALLER|PRACTICA|PREGUNTAS)\s*-->\s*$", rest, flags=re.M)
+        body, workshop, practice, qblock = parts[0].strip(), None, None, ""
         for tag, chunk in zip(parts[1::2], parts[2::2]):
-            if tag == "PRACTICA":
+            if tag == "TALLER":
+                workshop = chunk.strip()
+            elif tag == "PRACTICA":
                 practice = chunk.strip()
             else:
                 qblock = chunk
         qs = parse_questions(qblock, day, errors)
         per_level = {lvl: sum(1 for x in qs if x["d"] == lvl) for lvl in (1, 2, 3)}
-        if min(per_level.values()) < 5:
-            errors.append(f"{path.name}: se recomiendan ≥5 preguntas por nivel, hay {per_level}")
-        result[day] = {"minutes": int(meta.get("minutes", 60)), "body": body,
+        if min(per_level.values()) < MIN_PER_LEVEL:
+            errors.append(f"{path.name}: se necesitan ≥{MIN_PER_LEVEL} preguntas por nivel, hay {per_level}")
+        if not workshop:
+            errors.append(f"{path.name}: falta la sección <!-- TALLER -->")
+        result[day] = {"minutes": int(meta.get("minutes", 120)), "body": body, "workshop": workshop,
                        "practice": practice, "questions": qs}
     return result
 
@@ -198,7 +205,8 @@ def day_json(day, c):
         if x["unit"]:
             item["u"] = x["unit"]
         qs.append(item)
-    return {"day": day, "minutes": c["minutes"], "body": c["body"], "practice": c["practice"], "questions": qs}
+    return {"day": day, "minutes": c["minutes"], "body": c["body"], "workshop": c["workshop"],
+            "practice": c["practice"], "questions": qs}
 
 
 def js(obj):
@@ -246,11 +254,20 @@ def main():
         old.unlink()
     for name, sql in statements:
         (chunks / f"{name}.sql").write_text(sql + "\n", encoding="utf-8")
+    # JSON para la sincronización desde GitHub: select private.sync_from_github();
+    jdir = OUT_DIR / "json"
+    jdir.mkdir(exist_ok=True)
+    for old in jdir.glob("*.json"):
+        old.unlink()
+    (jdir / "catalogo.json").write_text(js(catalog_json(phases, modules, days)), encoding="utf-8")
+    for day in sorted(content):
+        (jdir / f"dia_{day:03d}.json").write_text(js(day_json(day, content[day])), encoding="utf-8")
+    (jdir / "index.json").write_text(js({"days": sorted(content), "total_days": len(days)}), encoding="utf-8")
     schema = (OUT_DIR / "01_schema.sql").read_text(encoding="utf-8")
     (OUT_DIR / "00_setup_completo.sql").write_text(
         "-- VERDADERO INGENIERO · instalación completa (esquema + contenido)\n"
         "-- Pégalo entero en Supabase → SQL Editor → Run.\n\n" + schema + "\n\n" + seed, encoding="utf-8")
-    print("Generados: supabase/02_seed.sql, supabase/00_setup_completo.sql y supabase/chunks/*.sql")
+    print("Generados: supabase/02_seed.sql, 00_setup_completo.sql, chunks/*.sql y json/*.json")
 
 
 if __name__ == "__main__":

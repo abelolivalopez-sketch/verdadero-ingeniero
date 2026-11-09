@@ -83,7 +83,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: 3)),
                   const SizedBox(height: 6),
-                  const Text('Una hora al día. Un examen al día. Hacer del esfuerzo la perfección.',
+                  const Text('Dos horas al día. Un examen al día. Hacer del esfuerzo la perfección.',
                       textAlign: TextAlign.center, style: TextStyle(color: AppColors.textDim)),
                   const SizedBox(height: 28),
                   HudCard(

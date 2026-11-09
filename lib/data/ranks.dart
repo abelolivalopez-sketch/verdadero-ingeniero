@@ -2,9 +2,9 @@ import 'dart:math' as math;
 
 /// Sistema de rangos por experiencia (XP).
 ///
-/// Nivel L se alcanza con 50·(L−1)² XP. Un examen perfecto en dificultad
-/// avanzada da ~250 XP, así que el rango máximo solo llega al final del
-/// programa con resultados excelentes.
+/// Nivel L se alcanza con 80·(L−1)² XP. Un examen diario perfecto en dificultad
+/// avanzada da ~390 XP (15 preguntas + aprobado), así que el rango máximo solo
+/// llega al final del programa con resultados excelentes.
 class RankInfo {
   final int level;
   final String title;
@@ -31,10 +31,12 @@ const _titles = <(int, String)>[
   (46, 'Verdadero Ingeniero'),
 ];
 
-int _xpFor(int level) => 50 * (level - 1) * (level - 1);
+int _xpFor(int level) => _k * (level - 1) * (level - 1);
+
+const _k = 80;
 
 RankInfo rankFor(int xp) {
-  final level = math.sqrt(math.max(0, xp) / 50).floor() + 1;
+  final level = math.sqrt(math.max(0, xp) / _k).floor() + 1;
   var title = _titles.first.$2;
   for (final t in _titles) {
     if (level >= t.$1) title = t.$2;

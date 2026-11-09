@@ -1,6 +1,6 @@
 # ⚙️ Verdadero Ingeniero
 
-App de entrenamiento diario para convertirte en un ingeniero mecánico completo, con especialización aeronáutica (mecánica de fluidos y CFD). **Una hora al día, un examen al día**: el sistema adapta la dificultad a tus resultados y no te deja avanzar hasta que dominas el día.
+App de entrenamiento diario para convertirte en un ingeniero mecánico completo, con especialización aeronáutica (mecánica de fluidos y CFD). **Dos horas al día, un examen al día**: el sistema adapta la dificultad a tus resultados y no te deja avanzar hasta que dominas el día.
 
 - **Plataformas:** Android, iOS, Windows y web (un solo código Flutter).
 - **Backend:** Supabase (PostgreSQL + autenticación). Toda la corrección se hace en el servidor: la app nunca recibe las soluciones antes de entregar.
@@ -20,19 +20,21 @@ App de entrenamiento diario para convertirte en un ingeniero mecánico completo,
 
 Cada 7 días hay un **día de integración** (problema real que mezcla todo lo de la semana). El plan completo, día a día, está en [`content/roadmap.yaml`](content/roadmap.yaml).
 
-**Estado del contenido:** los 455 días tienen título y objetivo; el **módulo 1 (días 1–14)** está redactado completo: teoría, práctica guiada y 15 preguntas por día (5 por nivel, 210 en total, 135 de ellas numéricas y verificadas automáticamente). El resto se añade por bloques con el mismo formato (ver *Añadir contenido*).
+**Estado del contenido:** los 455 días tienen título y objetivo; el **módulo 1 (días 1–14)** está redactado completo: teoría, taller práctico con Python, práctica y 21 preguntas por día (7 por nivel: 294 en total, 189 numéricas verificadas automáticamente; los 14 programas de los talleres se ejecutan en cada push). El resto se añade por bloques con el mismo formato (ver *Añadir contenido*).
 
 ## 🧠 Cómo funciona el entrenamiento
 
-1. **Teoría del día** (~40 min) con fórmulas, ejemplos resueltos y práctica con lápiz y papel.
-2. **Examen diario**: 10 preguntas del día repartidas según tu dificultad (Básico 5/3/2 · Intermedio 2/5/3 · Avanzado 1/4/5) + hasta 3 repasos de preguntas falladas en días anteriores.
-3. **Algoritmo de progresión** (en `submit_exam`):
+1. **Teoría del día** (~45 min) con fórmulas y ejemplos resueltos.
+2. **Taller práctico** (~45 min): un cálculo real resuelto paso a paso con su método, el mismo cálculo programado en Python (desde el día 1, sin instalar nada: Google Colab) o en tu CAD, y un reto.
+3. **Práctica** con lápiz y papel (~15 min).
+4. **Examen diario** (~20 min): 15 preguntas del día repartidas según tu dificultad (Básico 7/5/3 · Intermedio 4/7/4 · Avanzado 3/5/7) + hasta 5 repasos de preguntas falladas en días anteriores.
+5. **Algoritmo de progresión** (en `submit_exam`):
    - **≥ 80 %** → apruebas: se desbloquea el día siguiente y sumas racha.
    - **≥ 90 %** → además sube la dificultad.
    - **< 50 %** → baja la dificultad para consolidar y repites el día con preguntas nuevas.
    - Cada fallo entra en un **repaso espaciado** (Leitner: vuelve a los 1, 2, 4, 8 y 16 días).
-4. **XP y rangos**: 10 XP × dificultad por acierto, +50 por aprobar. De *Aprendiz* a *Verdadero Ingeniero*.
-5. **Práctica**: puedes repetir cualquier día ya superado sin afectar a tu progreso (mitad de XP).
+6. **XP y rangos**: 10 XP × dificultad por acierto, +50 por aprobar. De *Aprendiz* a *Verdadero Ingeniero* (nivel L con 80·(L−1)² XP).
+7. **Práctica**: puedes repetir cualquier día ya superado sin afectar a tu progreso (mitad de XP).
 
 ## 🗂️ Estructura del repositorio
 
@@ -50,10 +52,12 @@ supabase/
   00_setup_completo.sql    Instalación completa (esquema + contenido) en un solo archivo
   01_schema.sql            Tablas, seguridad RLS y funciones del servidor
   02_seed.sql              Contenido (generado)
-  chunks/                  El contenido troceado por días (generado)
+  chunks/                  El contenido troceado por días en SQL (generado)
+  json/                    El contenido en JSON que Supabase descarga de GitHub (generado)
 tools/
   build_seed.py            Valida el contenido y genera los SQL
   verify_numeric.py        Recalcula todas las respuestas numéricas
+  run_workshop_code.py     Ejecuta todo el código Python de los talleres
   setup_platforms.sh/.ps1  Crea las carpetas android/ios/web/windows
   test_flow.sql            Prueba completa del algoritmo de exámenes
 .github/workflows/build.yml  Compila APK, web y Windows en cada push
@@ -91,10 +95,12 @@ El proyecto **verdadero-ingeniero** (región París) ya está configurado en `li
    ```markdown
    ---
    day: 15
-   minutes: 60
+   minutes: 120
    ---
    ## Teoría en Markdown
    Fórmulas en línea \( F = m a \) y en bloque \[ \sigma = \frac{M y}{I} \]
+   <!-- TALLER -->
+   Método paso a paso, código Python en bloques ```python y reto
    <!-- PRACTICA -->
    Ejercicios con soluciones...
    <!-- PREGUNTAS -->
@@ -108,16 +114,19 @@ El proyecto **verdadero-ingeniero** (región París) ya está configurado en `li
    = 12.5
    > Explicación
    ```
-   `d` = dificultad 1–3 (mínimo 5 preguntas por nivel), `tol` = tolerancia en %.
-2. Valida y genera: `python tools/build_seed.py` (añade la fórmula de cada respuesta numérica a `tools/verify_numeric.py` y ejecútalo).
-3. Carga en Supabase el archivo `supabase/chunks/dia_015.sql` (SQL Editor → Run). Es idempotente: puedes reejecutarlo al corregir algo.
+   `d` = dificultad 1–3 (mínimo 7 preguntas por nivel), `tol` = tolerancia en %.
+2. Valida y genera: `python tools/build_seed.py`, `python tools/verify_numeric.py` (añade ahí la fórmula de cada respuesta numérica) y `python tools/run_workshop_code.py`.
+3. Haz commit y push a `main`.
+4. En Supabase → SQL Editor ejecuta: `select private.sync_from_github();` — descarga de GitHub todo el contenido publicado y lo carga. Es idempotente.
+   (Si algún día el repositorio pasa a privado, usa en su lugar los archivos `supabase/chunks/*.sql`).
 
 ## 🧪 Pruebas
 - `flutter test` — lógica de la app (lectura de números, formato, rangos, modelos).
-- `python tools/verify_numeric.py` — recalcula las 135 respuestas numéricas.
+- `python tools/verify_numeric.py` — recalcula las 189 respuestas numéricas.
+- `python tools/run_workshop_code.py` — ejecuta el código de todos los talleres.
 - `tools/test_flow.sql` — prueba de extremo a extremo del algoritmo sobre un Postgres local.
 
 ## 🛠️ Para retocar
 - El renderizado de fórmulas usa el paquete `gpt_markdown`; está aislado en `MathMarkdown` (`lib/widgets/common.dart`) por si hubiera que cambiarlo.
 - Umbral de aprobado: `submit_exam` en `supabase/01_schema.sql` y `AppConfig.passThreshold`.
-- Número de preguntas y reparto por dificultad: `start_daily_exam` (`c_day_questions`, `v_target`).
+- Número de preguntas, repasos y reparto por dificultad: `start_daily_exam` (`c_day_questions`, `c_max_review`, `v_target`).

@@ -93,7 +93,7 @@ class LessonSummary {
         title: j['title'] as String? ?? '',
         objective: j['objective'] as String?,
         isReady: _b(j['is_ready']),
-        estimatedMinutes: _i(j['estimated_minutes'], 60),
+        estimatedMinutes: _i(j['estimated_minutes'], 120),
         moduleId: j['module_id'] as String? ?? '',
         moduleTitle: j['module_title'] as String? ?? '',
         moduleColor: j['module_color'] as String?,
@@ -220,6 +220,7 @@ class DayContent {
   final String title;
   final String? objective;
   final String? bodyMd;
+  final String? workshopMd;
   final String? practiceMd;
   final int estimatedMinutes;
 
@@ -229,6 +230,7 @@ class DayContent {
     required this.title,
     required this.objective,
     required this.bodyMd,
+    required this.workshopMd,
     required this.practiceMd,
     required this.estimatedMinutes,
   });
@@ -241,8 +243,9 @@ class DayContent {
         title: j['title'] as String? ?? '',
         objective: j['objective'] as String?,
         bodyMd: j['body_md'] as String?,
+        workshopMd: j['workshop_md'] as String?,
         practiceMd: j['practice_md'] as String?,
-        estimatedMinutes: _i(j['estimated_minutes'], 60),
+        estimatedMinutes: _i(j['estimated_minutes'], 120),
       );
 }
 

@@ -20,6 +20,7 @@ jobs:
       - run: pip install pyyaml numpy
       - run: python tools/build_seed.py --check
       - run: python tools/verify_numeric.py
+      - run: python tools/run_workshop_code.py
 
   android-web:
     name: Android + Web

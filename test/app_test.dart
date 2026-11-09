@@ -33,11 +33,11 @@ void main() {
   test('rangos por experiencia', () {
     expect(rankFor(0).level, 1);
     expect(rankFor(0).title, 'Aprendiz');
-    expect(rankFor(50).level, 2);
-    expect(rankFor(800).level, 5);
-    expect(rankFor(800).title, 'Técnico');
-    expect(rankFor(120000).title, 'Verdadero Ingeniero');
-    expect(rankFor(125).progress, closeTo(0.5, 1e-9));
+    expect(rankFor(80).level, 2);
+    expect(rankFor(1280).level, 5);
+    expect(rankFor(1280).title, 'Técnico');
+    expect(rankFor(170000).title, 'Verdadero Ingeniero');
+    expect(rankFor(200).progress, closeTo(0.5, 1e-9));
   });
 
   test('modelos: resultado de examen', () {

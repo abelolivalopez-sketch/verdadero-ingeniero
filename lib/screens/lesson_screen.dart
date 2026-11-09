@@ -80,19 +80,25 @@ class _LessonScreenState extends State<LessonScreen> {
                         ),
                       )
                     else ...[
+                      const _BlockHeader(Icons.menu_book_outlined, 'TEORÍA', '≈ 45 min', AppColors.arc),
                       MathMarkdown(c.bodyMd!),
+                      if (c.workshopMd != null && c.workshopMd!.trim().isNotEmpty) ...[
+                        const SizedBox(height: 28),
+                        HudCard(
+                          accent: AppColors.green,
+                          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                            const _BlockHeader(Icons.engineering_outlined, 'TALLER PRÁCTICO',
+                                'cálculo guiado + Python · ≈ 45 min', AppColors.green),
+                            MathMarkdown(c.workshopMd!),
+                          ]),
+                        ),
+                      ],
                       if (c.practiceMd != null && c.practiceMd!.trim().isNotEmpty) ...[
                         const SizedBox(height: 24),
                         HudCard(
                           accent: AppColors.gold,
                           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                            const Row(children: [
-                              Icon(Icons.edit_note, color: AppColors.gold),
-                              SizedBox(width: 8),
-                              Text('PRÁCTICA CON LÁPIZ Y PAPEL',
-                                  style: TextStyle(letterSpacing: 1.4, fontWeight: FontWeight.w800, color: AppColors.gold)),
-                            ]),
-                            const SizedBox(height: 8),
+                            const _BlockHeader(Icons.edit_note, 'PRÁCTICA CON LÁPIZ Y PAPEL', '≈ 15 min', AppColors.gold),
                             MathMarkdown(c.practiceMd!),
                           ]),
                         ),
@@ -121,6 +127,28 @@ class _LessonScreenState extends State<LessonScreen> {
           );
         },
       ),
+    );
+  }
+}
+
+/// Cabecera de cada bloque de la lección (teoría, taller, práctica).
+class _BlockHeader extends StatelessWidget {
+  const _BlockHeader(this.icon, this.title, this.hint, this.color);
+
+  final IconData icon;
+  final String title;
+  final String hint;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Wrap(spacing: 8, runSpacing: 4, crossAxisAlignment: WrapCrossAlignment.center, children: [
+        Icon(icon, color: color),
+        Text(title, style: TextStyle(letterSpacing: 1.4, fontWeight: FontWeight.w800, color: color)),
+        Text(hint, style: const TextStyle(color: AppColors.textDim, fontSize: 12)),
+      ]),
     );
   }
 }

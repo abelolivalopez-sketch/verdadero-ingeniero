@@ -101,9 +101,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const HudCard(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       _Rule(Icons.menu_book_outlined, 'Cada día',
-                          'Estudias la teoría del día (unos 40 min) y haces la práctica con lápiz y papel.'),
+                          'Dos horas: teoría (≈45 min), taller práctico con cálculo guiado y Python (≈45 min), práctica con lápiz y papel y examen.'),
                       _Rule(Icons.quiz_outlined, 'Examen diario',
-                          '10 preguntas del día adaptadas a tu dificultad, más hasta 3 repasos de lo que fallaste antes.'),
+                          '15 preguntas del día adaptadas a tu dificultad, más hasta 5 repasos de lo que fallaste antes.'),
                       _Rule(Icons.check_circle_outline, 'Aprobar (≥ ${AppConfig.passThreshold} %)',
                           'Desbloqueas el día siguiente y sumas un día a tu racha.'),
                       _Rule(Icons.trending_up, 'Excelente (≥ 90 %)',
