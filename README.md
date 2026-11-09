@@ -71,7 +71,7 @@ En el móvil, ábrela en Chrome → menú ⋮ → *Añadir a pantalla de inicio*
 (Configuración necesaria una sola vez: *Settings → Pages → Build and deployment → Source: **GitHub Actions***).
 
 **Apps nativas:** cada push a `main` las compila. Pestaña **Actions** → última ejecución → **Artifacts**:
-- `verdadero-ingeniero-android-apk` → descomprime e instala el `.apk` en tu móvil (permite "instalar apps desconocidas").
+- **APK de Android, descarga directa desde el móvil:** https://abelolivalopez-sketch.github.io/verdadero-ingeniero/descargar.html
 - `verdadero-ingeniero-windows` → descomprime y ejecuta `verdadero_ingeniero.exe` (deja todos los archivos de la carpeta juntos).
 
 ### Opción B · Desarrollo en tu ordenador
