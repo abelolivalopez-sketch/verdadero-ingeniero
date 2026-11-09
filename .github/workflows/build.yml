@@ -1,0 +1,66 @@
+# Compila la app automáticamente en cada push a main.
+# Descarga el APK, la web o el ejecutable de Windows desde la pestaña "Actions" del repositorio
+# (entra en la última ejecución → sección "Artifacts").
+name: Compilar app
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  contenido:
+    name: Validar contenido
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml numpy
+      - run: python tools/build_seed.py --check
+      - run: python tools/verify_numeric.py
+
+  android-web:
+    name: Android + Web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: bash tools/setup_platforms.sh
+      - run: flutter analyze --no-fatal-infos --no-fatal-warnings
+      - run: flutter test
+      - run: flutter build apk --release
+      - run: flutter build web --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verdadero-ingeniero-android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verdadero-ingeniero-web
+          path: build/web
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: ./tools/setup_platforms.ps1
+        shell: pwsh
+      - run: flutter build windows --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verdadero-ingeniero-windows
+          path: build/windows/x64/runner/Release

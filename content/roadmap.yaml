@@ -1,0 +1,678 @@
+# =====================================================================
+# VERDADERO INGENIERO · Plan de estudios de 455 días (15 meses · 1 h/día)
+# Cada línea de "days" es:  Título | Objetivo del día
+# Todos los módulos duran un múltiplo de 7 días: los días 7, 14, 21… de cada
+# módulo (y por tanto los días 7, 14, 21… del programa) son "días de
+# integración" (repaso + problema o mini-proyecto).
+# El número de día se asigna en orden. La app se adapta al total de días.
+# =====================================================================
+
+phases:
+  - id: 1
+    title: Fundamentos matemáticos y computacionales
+    description: El lenguaje del ingeniero. Matemáticas, cálculo, álgebra lineal, ecuaciones diferenciales y programación científica.
+  - id: 2
+    title: Mecánica del ingeniero
+    description: Mecánica general, teoría de máquinas y mecanismos, elasticidad y resistencia, materiales, termodinámica, motores, diseño, CAD, elementos finitos, obras y montajes.
+  - id: 3
+    title: Eléctrica, electrónica y mecatrónica
+    description: Circuitos, electrónica, microcontroladores, Raspberry Pi, sensores, actuadores y control automático.
+  - id: 4
+    title: Especialización aeronáutica · Fluidos y CFD
+    description: Mecánica de fluidos, aerodinámica, mecánica de vuelo y simulación CFD profesional.
+  - id: 5
+    title: Proyecto final integrador
+    description: Diseña, calcula, simula, construye y defiende un proyecto real que integra todo lo aprendido.
+
+modules:
+  # ============================================================ FASE 1
+  - id: M01
+    phase: 1
+    title: Matemáticas del ingeniero
+    description: Unidades, estimación, álgebra, funciones, trigonometría, vectores, números complejos y geometría analítica.
+    color: "#4FD1FF"
+    tools: [Calculadora científica, Papel y lápiz]
+    days:
+      - Unidades SI, prefijos y análisis dimensional | Trabajar con el SI y comprobar ecuaciones por sus dimensiones
+      - Estimación, cifras significativas y errores | Estimar órdenes de magnitud y propagar incertidumbres de medida
+      - "Álgebra para ingenieros: ecuaciones y sistemas | Despejar fórmulas, resolver sistemas lineales e interpolar tablas"
+      - "Funciones: potencias, exponenciales y logaritmos | Modelar crecimiento, decaimiento y usar escalas logarítmicas y dB"
+      - "Trigonometría I: radianes, círculo unitario e identidades | Manejar ángulos, sinusoides e identidades trigonométricas"
+      - "Trigonometría II: triángulos y descomposición de fuerzas | Aplicar teoremas del seno y del coseno a fuerzas reales"
+      - "Integración semana 1: el problema de la grúa | Combinar unidades, trigonometría y sistemas en un caso real"
+      - "Vectores I: componentes, módulo y vectores unitarios | Representar fuerzas y velocidades en 2D y 3D"
+      - "Vectores II: producto escalar, proyecciones y trabajo | Calcular ángulos, proyecciones, trabajo y potencia"
+      - "Vectores III: producto vectorial, momentos y pares | Calcular momentos de fuerzas, pares y normales a planos"
+      - "Números complejos I: forma binómica, polar y Euler | Operar con complejos y usar la fórmula de Euler"
+      - "Números complejos II: fasores y oscilaciones | Usar fasores para señales sinusoidales, impedancias y vibraciones"
+      - Geometría analítica y sistemas de coordenadas | Rectas, planos, cónicas y coordenadas polares, cilíndricas y esféricas
+      - "Integración módulo 1: examen de Matemáticas del ingeniero | Consolidar el módulo con un problema integrador de un pilón de motor"
+
+  - id: M02
+    phase: 1
+    title: Cálculo en una variable
+    description: Límites, derivadas, optimización, series de Taylor, integrales y sus aplicaciones mecánicas.
+    color: "#4FD1FF"
+    tools: [Desmos o GeoGebra, Python (opcional)]
+    days:
+      - Límites y continuidad | Entender límites, asíntotas, indeterminaciones y continuidad
+      - "La derivada: definición e interpretación física | Ver la derivada como tasa de cambio: velocidad, pendiente, caudal"
+      - Reglas de derivación y regla de la cadena | Derivar con soltura productos, cocientes y funciones compuestas
+      - "Aplicaciones: optimización de diseño | Encontrar máximos y mínimos en problemas de ingeniería"
+      - "Aproximaciones: linealización y series de Taylor | Aproximar funciones y acotar el error cometido"
+      - "Raíces de ecuaciones: bisección y Newton-Raphson | Resolver ecuaciones no lineales numéricamente"
+      - "Integración semana 3: diseño óptimo de un depósito | Optimizar material y linealizar en un caso real"
+      - "La integral: áreas y acumulación | Entender la integral definida como suma acumulada y el teorema fundamental"
+      - Técnicas de integración | Sustitución, integración por partes y fracciones simples
+      - "Aplicaciones: centroides y momentos de inercia de área | Calcular centros de gravedad e inercias de secciones"
+      - "Aplicaciones: trabajo, presión hidrostática y compuertas | Integrar fuerzas distribuidas sobre superficies"
+      - "Integración numérica: trapecios y Simpson | Integrar datos experimentales y estimar el error"
+      - Integrales impropias, valor medio y valor eficaz (RMS) | Calcular medias y valores eficaces de señales
+      - "Integración módulo 2: examen de Cálculo | Problemas mixtos de derivadas e integrales aplicadas"
+
+  - id: M03
+    phase: 1
+    title: Álgebra lineal
+    description: Matrices, sistemas, determinantes, autovalores y los métodos que hay dentro de todo software de FEA y CFD.
+    color: "#4FD1FF"
+    tools: [Python + NumPy]
+    days:
+      - Matrices y operaciones | Operar con matrices y entender qué representan
+      - Sistemas lineales y eliminación gaussiana | Resolver sistemas y clasificar sus soluciones
+      - Determinantes y matriz inversa | Calcular e interpretar determinantes e inversas
+      - Espacios vectoriales, bases y rango | Independencia lineal, base, dimensión y rango
+      - "Transformaciones lineales: rotaciones y escalados | Construir matrices de rotación 2D y 3D"
+      - Autovalores y autovectores | Calcularlos e interpretarlos físicamente
+      - "Integración semana 5: armadura plana como sistema lineal | Plantear y resolver una estructura con matrices"
+      - Diagonalización y modos propios de vibración | Obtener los modos de un sistema masa-muelle
+      - Tensor de tensiones y direcciones principales | Aplicar autovalores al estado tensional
+      - Ortogonalidad y mínimos cuadrados | Ajustar modelos a datos experimentales
+      - Descomposiciones LU, QR y SVD | Conocer cómo resuelven los ordenadores los sistemas
+      - Matrices dispersas y sistemas grandes | Entender por qué FEA y CFD generan matrices enormes y dispersas
+      - "Métodos iterativos: Jacobi y Gauss-Seidel | Resolver sistemas grandes de forma iterativa"
+      - "Integración módulo 3: examen de Álgebra lineal | Problemas mixtos de matrices y autovalores"
+
+  - id: M04
+    phase: 1
+    title: Cálculo multivariable y vectorial
+    description: Derivadas parciales, integrales múltiples y operadores vectoriales; el idioma de la mecánica de fluidos.
+    color: "#4FD1FF"
+    tools: [Python + Matplotlib]
+    days:
+      - Funciones de varias variables y derivadas parciales | Calcular derivadas parciales e interpretarlas
+      - Gradiente y derivada direccional | Usar el gradiente para encontrar direcciones de máximo cambio
+      - Optimización multivariable y multiplicadores de Lagrange | Optimizar con restricciones de diseño
+      - "Integrales dobles: áreas, masas y centroides | Integrar sobre regiones planas"
+      - Integrales triples y coordenadas cilíndricas y esféricas | Calcular volúmenes, masas e inercias de sólidos
+      - Campos escalares y vectoriales | Representar campos de temperatura, presión y velocidad
+      - "Integración semana 7: campo de temperaturas en una placa | Analizar un campo 2D con gradientes"
+      - "Divergencia: fuentes y sumideros de un flujo | Interpretar la divergencia de un campo de velocidades"
+      - "Rotacional: vorticidad y rotación de un fluido | Interpretar el rotacional como rotación local"
+      - "Integrales de línea: trabajo y circulación | Calcular trabajo y circulación a lo largo de curvas"
+      - Integrales de superficie y flujo a través de una superficie | Calcular caudales a través de superficies
+      - Teoremas de Green, Stokes y Gauss | Relacionar integrales de volumen, superficie y línea
+      - "Nabla y laplaciano: el lenguaje de la física de campos | Leer ecuaciones de campo con soltura"
+      - "Integración módulo 4: examen de Cálculo vectorial | Problemas mixtos de campos y teoremas integrales"
+
+  - id: M05
+    phase: 1
+    title: Ecuaciones diferenciales
+    description: Modelado dinámico, vibraciones, Laplace y una primera visión de las EDP de la física.
+    color: "#4FD1FF"
+    tools: [Python + SciPy]
+    days:
+      - "Qué es una EDO: modelado de sistemas físicos | Traducir un sistema físico a una ecuación diferencial"
+      - "EDO de primer orden: separables y lineales | Resolver EDO de primer orden analíticamente"
+      - "Aplicaciones: enfriamiento, condensadores y vaciado de depósitos | Resolver problemas reales de primer orden"
+      - EDO de segundo orden con coeficientes constantes | Resolver la homogénea y la particular
+      - "Vibraciones libres: masa-muelle-amortiguador | Clasificar amortiguamiento y calcular frecuencias"
+      - Vibraciones forzadas y resonancia | Calcular amplitud de respuesta y factor de amplificación
+      - "Integración semana 9: suspensión de un vehículo | Modelar y dimensionar una suspensión"
+      - Transformada de Laplace | Transformar y antitransformar funciones típicas
+      - Funciones de transferencia y respuesta al escalón | Analizar sistemas dinámicos en el dominio s
+      - Sistemas de EDO y espacio de estados | Escribir sistemas en forma matricial de estado
+      - "Métodos numéricos: Euler y Runge-Kutta 4 | Integrar EDO numéricamente y comparar precisión"
+      - "Introducción a las EDP: calor, onda y Laplace | Reconocer las tres EDP clásicas y su física"
+      - Separación de variables y series de Fourier | Resolver la ecuación del calor 1D
+      - "Integración módulo 5: examen de Ecuaciones diferenciales | Problemas mixtos de dinámica y vibraciones"
+
+  - id: M06
+    phase: 1
+    title: Programación para ingenieros y métodos numéricos
+    description: Python de cero a profesional, cálculo simbólico, Git, automatización de cálculos e informes y tu primer solver numérico.
+    color: "#4FD1FF"
+    tools: [Python, VS Code, Jupyter, Git, GitHub, NumPy, SciPy, SymPy, Matplotlib, Pandas]
+    days:
+      - "Entorno de trabajo: Python, VS Code y Jupyter | Dejar listo tu entorno de ingeniería"
+      - "Python básico: tipos, control de flujo y funciones | Escribir scripts limpios y reutilizables"
+      - Estructuras de datos y buenas prácticas | Usar listas, diccionarios y clases con criterio
+      - "NumPy: arrays y vectorización | Calcular con arrays sin bucles"
+      - "Matplotlib: gráficas de ingeniería | Graficar resultados de forma profesional"
+      - "Pandas: análisis de datos de ensayos | Leer, limpiar y analizar datos experimentales"
+      - "Integración semana 11: ensayo de tracción con Python | Obtener E, límite elástico y resistencia de datos reales"
+      - "Módulos y paquetes: tu propia librería de cálculo | Organizar funciones de ingeniería reutilizables"
+      - Cálculo simbólico con SymPy | Derivar, integrar y despejar fórmulas con el ordenador
+      - Unidades físicas en el código con pint | Hacer imposible mezclar unidades en tus cálculos
+      - "Git y GitHub: commits, ramas y colaboración | Versionar tus cálculos como un profesional"
+      - "Depuración y pruebas automáticas con pytest | Garantizar que tus cálculos son correctos"
+      - "Automatizar informes: Excel y PDF desde Python | Generar memorias de cálculo automáticas"
+      - "Integración semana 12: calculadora de vigas con informe automático | Programa que calcula y documenta"
+      - "Errores numéricos: redondeo, truncamiento y estabilidad | Entender por qué un cálculo numérico falla"
+      - Interpolación y ajuste de curvas | Interpolar tablas y ajustar modelos con SciPy
+      - Derivación numérica y diferencias finitas | Aproximar derivadas y estimar su orden de error
+      - Resolución numérica de EDO con solve_ivp | Simular sistemas dinámicos con SciPy
+      - Sistemas lineales y no lineales con SciPy | Resolver sistemas con linalg y fsolve
+      - Optimización numérica con scipy.optimize | Optimizar parámetros de diseño automáticamente
+      - "Integración semana 13: simulador de péndulo amortiguado | Construir y validar un simulador completo"
+      - Diferencias finitas para la ecuación del calor 1D | Programar un esquema explícito
+      - "Estabilidad: CFL, esquemas explícitos e implícitos | Elegir paso de tiempo y esquema"
+      - "Ecuación de Laplace 2D: método iterativo | Resolver un campo potencial en una malla"
+      - "Convección-difusión 1D: upwind frente a centrado | Ver la difusión numérica: el preludio de la CFD"
+      - Programación orientada a objetos para simulaciones | Estructurar un código de simulación mantenible
+      - "Visualización de campos: contornos y vectores | Representar campos 2D como en un post-procesador"
+      - "Integración módulo 6: tu primer mini-solver | Entregar un solver documentado, probado y versionado"
+
+  # ============================================================ FASE 2
+  - id: M07
+    phase: 2
+    title: Mecánica general · Estática
+    description: Equilibrio, estructuras, esfuerzos internos, rozamiento, centros de gravedad e inercias.
+    color: "#F2B400"
+    tools: [Papel y lápiz, Python]
+    days:
+      - Equilibrio de la partícula | Resolver equilibrios en 2D y 3D
+      - Equilibrio del sólido rígido en 2D | Calcular reacciones en apoyos
+      - Equilibrio en 3D y tipos de apoyo | Plantear las 6 ecuaciones de equilibrio
+      - "Armaduras: método de los nudos | Calcular esfuerzos en barras"
+      - "Armaduras: método de las secciones | Calcular barras concretas rápidamente"
+      - Bastidores y máquinas | Analizar elementos multifuerza
+      - "Integración semana 15: análisis de una grúa torre | Integrar equilibrio y estructuras"
+      - Fuerzas distribuidas y cargas equivalentes | Sustituir cargas distribuidas por resultantes
+      - "Diagramas de esfuerzos: axil, cortante y flector | Dibujar diagramas N, V y M"
+      - "Rozamiento aplicado: cuñas, tornillos y correas | Resolver mecanismos con rozamiento"
+      - Centros de gravedad de cuerpos compuestos | Calcular centroides por partes
+      - Momentos de inercia y teorema de Steiner | Calcular inercias de perfiles
+      - Trabajo virtual | Resolver mecanismos por energía
+      - "Integración módulo 7: examen de Estática | Problemas mixtos de estática"
+
+  - id: M08
+    phase: 2
+    title: Mecánica general · Dinámica
+    description: Cinemática, dinámica de la partícula y del sólido rígido, energía, cantidad de movimiento y gravitación.
+    color: "#F2B400"
+    tools: [Python, Papel y lápiz]
+    days:
+      - Cinemática de la partícula | Relacionar posición, velocidad y aceleración
+      - "Movimiento curvilíneo: componentes intrínsecas y polares | Describir trayectorias curvas"
+      - Leyes de Newton y diagramas de cuerpo libre | Dibujar DCL correctos y plantear ecuaciones
+      - Rozamiento y planos inclinados en dinámica | Resolver problemas con rozamiento estático y dinámico
+      - Trabajo, energía y potencia | Aplicar el teorema de la energía
+      - Impulso, cantidad de movimiento y choques | Resolver choques e impulsos
+      - "Integración semana 17: aceleración y frenado de un vehículo | Integrar dinámica y energía"
+      - Sistemas de partículas y centro de masas | Aplicar Newton a sistemas
+      - Cinemática del sólido rígido | Velocidades y aceleraciones de puntos de un sólido
+      - "Dinámica de rotación: momento de inercia y par | Aplicar ΣM = Iα"
+      - Energía y momento angular del sólido rígido | Usar conservación en rotación
+      - "Movimiento plano general: rodadura | Resolver ruedas, poleas y cilindros rodando"
+      - Gravitación y movimiento orbital básico | Calcular órbitas circulares y velocidad de escape
+      - "Integración módulo 8: examen de Dinámica | Problemas mixtos de dinámica"
+
+  - id: M09
+    phase: 2
+    title: Teoría de máquinas y mecanismos
+    description: Mecanismos, movimiento relativo y Coriolis, análisis de posición, velocidad y aceleración, levas, engranajes, trenes epicicloidales, dinámica de máquinas, volantes y equilibrado.
+    color: "#F2B400"
+    tools: [Python, GeoGebra, Linkage o SAM, SolidWorks Motion]
+    days:
+      - "Máquinas y mecanismos: eslabones, pares cinemáticos y cadenas | Describir cualquier mecanismo con su vocabulario técnico"
+      - "Grados de libertad: criterio de Grübler-Kutzbach | Calcular la movilidad de un mecanismo"
+      - "Cuadrilátero articulado y ley de Grashof | Predecir si un eslabón puede dar vueltas completas"
+      - Mecanismo biela-manivela e inversiones | Analizar el corazón de un motor alternativo
+      - "Análisis de posición: métodos gráfico y analítico | Resolver la posición de un mecanismo"
+      - "Movimiento relativo I: velocidades en sistemas de referencia móviles | Componer velocidades absolutas, relativas y de arrastre"
+      - "Integración semana 19: programa la posición de un cuadrilátero en Python | Simular la geometría de un mecanismo"
+      - "Movimiento relativo II: aceleración de arrastre y de Coriolis | Calcular aceleraciones en guías móviles"
+      - "Análisis de velocidades: polígonos de velocidades | Obtener velocidades de todos los puntos"
+      - "Centros instantáneos de rotación y teorema de Kennedy | Hallar velocidades de forma rápida"
+      - "Análisis de aceleraciones: polígono de aceleraciones | Obtener aceleraciones de todos los puntos"
+      - Análisis cinemático con números complejos (método de Raven) | Resolver mecanismos de forma analítica y programable
+      - Simulación cinemática completa en Python | Obtener curvas de posición, velocidad y aceleración
+      - "Integración semana 20: cinemática del pistón de un motor | Velocidad y aceleración del pistón en todo el ciclo"
+      - "Síntesis de mecanismos: generación de trayectorias y funciones | Diseñar un mecanismo para un movimiento dado"
+      - "Levas y seguidores: leyes de desplazamiento | Elegir leyes de movimiento sin choques"
+      - Diseño del perfil de una leva | Trazar y comprobar el perfil
+      - "Engranajes: ley fundamental y perfil de evolvente | Entender por qué los dientes tienen esa forma"
+      - Trenes de engranajes ordinarios | Calcular relaciones de transmisión
+      - "Trenes epicicloidales: fórmula de Willis | Resolver reductores planetarios y diferenciales"
+      - "Integración semana 21: caja reductora planetaria | Calcular velocidades y pares de un planetario"
+      - "Dinámica de máquinas: análisis de fuerzas en mecanismos | Calcular reacciones en pares y par motor"
+      - Potencias virtuales y par equilibrante | Resolver la dinámica con un balance de potencias
+      - Volantes de inercia y grado de irregularidad | Dimensionar un volante
+      - "Equilibrado de rotores: estático y dinámico | Calcular masas de equilibrado"
+      - Equilibrado de motores alternativos | Analizar fuerzas de inercia de primer y segundo orden
+      - Velocidades críticas de ejes y vibraciones en máquinas | Evitar la resonancia de ejes
+      - "Integración módulo 9: examen de Teoría de máquinas | Problemas mixtos de mecanismos"
+
+  - id: M10
+    phase: 2
+    title: Elasticidad y resistencia de materiales
+    description: Tensiones, deformaciones, teoría de la elasticidad, flexión, torsión, pandeo, fatiga y criterios de fallo.
+    color: "#F2B400"
+    tools: [Python, Prontuario de vigas]
+    days:
+      - Tensión y deformación | Definir tensión normal, cortante y deformación
+      - Ley de Hooke, Poisson y diagrama tensión-deformación | Leer un ensayo y usar las constantes elásticas
+      - "Carga axial: alargamientos e hiperestáticos | Resolver barras con carga axial"
+      - Tensiones térmicas | Calcular tensiones por dilatación impedida
+      - Torsión de ejes circulares | Calcular tensión tangencial y giro
+      - Transmisión de potencia por ejes | Relacionar par, potencia y rpm
+      - "Integración semana 23: dimensionado de un eje de transmisión | Dimensionar un eje real"
+      - "Flexión: tensiones normales en vigas | Aplicar σ = M·y/I"
+      - Tensiones cortantes en vigas | Aplicar la fórmula de Collignon
+      - "Deflexión de vigas: ecuación de la elástica | Calcular flechas y giros"
+      - Superposición y vigas hiperestáticas | Resolver vigas con apoyos redundantes
+      - Transformación de tensiones y círculo de Mohr | Encontrar tensiones principales
+      - Tensiones combinadas | Combinar axil, flexión y torsión
+      - "Integración semana 24: larguero de un ala a flexión | Dimensionar un larguero"
+      - "Teoría de la elasticidad: tensor de tensiones y equilibrio interno | Escribir el estado tensional completo"
+      - Tensor de deformaciones y ecuaciones de compatibilidad | Relacionar desplazamientos y deformaciones
+      - "Ley de Hooke generalizada: E, G, ν y K | Pasar de tensiones a deformaciones en 3D"
+      - Tensión plana y deformación plana | Simplificar problemas 3D a 2D
+      - "Cilindros de pared gruesa y ajustes a presión (Lamé) | Calcular tensiones en ajustes eje-buje"
+      - "Energía de deformación y teoremas de Castigliano | Calcular desplazamientos por energía"
+      - "Integración semana 25: ajuste a presión de un buje sobre un eje | Calcular apriete, tensiones y par transmisible"
+      - "Criterios de fallo: von Mises y Tresca | Predecir fluencia en estados complejos"
+      - Pandeo de columnas (Euler y Johnson) | Calcular cargas críticas
+      - Concentración de tensiones | Usar factores Kt
+      - "Fatiga: curvas S-N y criterio de Goodman | Estimar vida a fatiga"
+      - Recipientes a presión de pared delgada | Calcular tensiones circunferenciales y axiales
+      - Introducción a la plasticidad y la mecánica de la fractura | Saber cuándo falla una pieza con grietas
+      - "Integración módulo 10: examen de Elasticidad y resistencia | Problemas mixtos de resistencia"
+
+  - id: M11
+    phase: 2
+    title: Ciencia de materiales y fabricación
+    description: Metales, polímeros, compuestos, tratamientos, selección de materiales y procesos de fabricación.
+    color: "#F2B400"
+    tools: [Diagramas de Ashby, Impresora 3D (opcional)]
+    days:
+      - Estructura atómica y cristalina de los metales | Relacionar estructura y propiedades
+      - Propiedades mecánicas y ensayos | Interpretar tracción, dureza e impacto
+      - "Diagramas de fase: el sistema hierro-carbono | Leer el diagrama Fe-C"
+      - Tratamientos térmicos de aceros | Elegir temple, revenido o recocido
+      - Aleaciones de aluminio y titanio en aeronáutica | Conocer las aleaciones aeroespaciales clave
+      - Polímeros y plásticos técnicos | Elegir plásticos para piezas funcionales
+      - "Integración semana 27: selección de material para un soporte | Justificar una elección de material"
+      - "Materiales compuestos: fibra de carbono y laminados | Entender laminados y su anisotropía"
+      - "Selección de materiales: diagramas de Ashby | Usar índices de material"
+      - "Procesos de fabricación: mecanizado | Conocer torneado, fresado y parámetros de corte"
+      - Conformado, fundición y soldadura | Elegir el proceso adecuado
+      - "Fabricación aditiva: FDM, SLA y metal | Diseñar para impresión 3D"
+      - Tolerancias, ajustes y metrología | Especificar ajustes ISO y medir
+      - "Integración módulo 11: examen de Materiales y fabricación | Problemas mixtos de materiales"
+
+  - id: M12
+    phase: 2
+    title: Termodinámica y transferencia de calor
+    description: Primer y segundo principio, ciclos (incluido Brayton de los motores a reacción) y transmisión de calor.
+    color: "#F2B400"
+    tools: [Tablas de vapor, CoolProp (Python)]
+    days:
+      - "Conceptos básicos: sistema, estado y propiedades | Definir sistemas y propiedades termodinámicas"
+      - Primer principio en sistemas cerrados | Aplicar balances de energía
+      - Sustancias puras y tablas de vapor | Usar tablas y diagramas de fase
+      - Gas ideal y procesos | Calcular procesos isotermos, isobaros y adiabáticos
+      - Primer principio en volúmenes de control | Analizar toberas, turbinas y compresores
+      - Segundo principio y entropía | Evaluar irreversibilidades
+      - "Integración semana 29: análisis de un compresor | Calcular potencia y rendimiento isentrópico"
+      - "Ciclos de potencia: Carnot y Rankine | Analizar centrales de vapor"
+      - "Ciclos de gas: Otto y Diesel | Analizar los ciclos teóricos de los motores alternativos"
+      - "Ciclo Brayton: turbinas de gas y turborreactores | Analizar el ciclo de los motores aeronáuticos"
+      - Refrigeración y bombas de calor | Calcular COP
+      - Exergía e irreversibilidades | Cuantificar la calidad de la energía
+      - Aire húmedo y psicrometría | Usar el diagrama psicrométrico
+      - "Integración semana 30: rendimiento de un turborreactor | Calcular empuje y consumo específico"
+      - "Conducción: ley de Fourier | Calcular flujos de calor por conducción"
+      - "Conducción: resistencias térmicas y aletas | Diseñar disipadores"
+      - "Convección: coeficiente de película y números adimensionales | Usar Nu, Re y Pr"
+      - "Convección forzada y natural: correlaciones | Elegir y aplicar correlaciones"
+      - Radiación térmica | Calcular intercambio radiante
+      - "Intercambiadores de calor: LMTD y NTU | Dimensionar un intercambiador"
+      - "Integración módulo 12: examen de Termodinámica y calor | Problemas mixtos térmicos"
+
+  - id: M13
+    phase: 2
+    title: Motores y máquinas de fluidos
+    description: Motores de combustión interna, motores eléctricos y tracción, turbomáquinas, bombas, turbinas, oleohidráulica y neumática.
+    color: "#F2B400"
+    tools: [Python, Catálogos de fabricantes, FluidSIM o simulador hidráulico]
+    days:
+      - Clasificación de motores y máquinas térmicas | Situar cada tipo de motor y su campo de uso
+      - "Motores alternativos: arquitectura, cilindrada y relación de compresión | Calcular la geometría de un motor"
+      - "Ciclo real: diagrama indicador y presión media efectiva | Pasar del ciclo teórico al real"
+      - Par, potencia, consumo específico y curvas características | Leer e interpretar las curvas de un motor
+      - "Rendimientos: indicado, mecánico, volumétrico y efectivo | Localizar dónde se pierde la energía"
+      - Distribución, admisión y sobrealimentación con turbo | Entender cómo respira un motor
+      - "Integración semana 32: análisis de las curvas de un motor real | Calcular par, potencia y consumo en cada punto"
+      - Combustión, emisiones y post-tratamiento | Relacionar combustión, rendimiento y contaminación
+      - "Dinámica del motor: fuerzas de inercia y par instantáneo | Unir el motor con la teoría de máquinas"
+      - "Motores eléctricos: curvas par-velocidad y selección | Elegir el motor eléctrico para una aplicación"
+      - "Vehículo eléctrico e híbrido: baterías y tren de potencia | Dimensionar un tren de potencia"
+      - "Turbomáquinas: ecuación de Euler y triángulos de velocidades | Calcular el trabajo de un rodete"
+      - "Bombas centrífugas: curvas, NPSH y cavitación | Seleccionar una bomba sin cavitación"
+      - "Integración semana 33: selección de una bomba para una instalación | Cruzar curva de bomba y curva de instalación"
+      - Ventiladores y compresores | Seleccionar máquinas para gases
+      - "Turbinas hidráulicas: Pelton, Francis y Kaplan | Elegir turbina según salto y caudal"
+      - "Turbinas de gas y motores a reacción: componentes | Recorrer un turbofán por dentro"
+      - "Oleohidráulica: bombas, cilindros y válvulas | Calcular fuerzas y velocidades hidráulicas"
+      - "Neumática industrial: actuadores y circuitos | Diseñar automatismos neumáticos"
+      - Esquemas hidráulicos y neumáticos (ISO 1219) | Leer y dibujar esquemas normalizados
+      - "Integración módulo 13: examen de Motores y máquinas | Problemas mixtos de motores y máquinas"
+
+  - id: M14
+    phase: 2
+    title: Diseño de máquinas y CAD
+    description: Dibujo técnico, SolidWorks, CATIA V5, GD&T y cálculo de elementos de máquinas.
+    color: "#F2B400"
+    tools: [SolidWorks, CATIA V5, AutoCAD]
+    days:
+      - Metodología de diseño y especificaciones | Convertir una necesidad en especificaciones
+      - "Dibujo técnico: vistas, cortes y acotación | Leer y crear planos normalizados"
+      - "SolidWorks: croquis y relaciones geométricas | Croquizar con intención de diseño"
+      - "SolidWorks: operaciones de sólido | Modelar piezas robustas"
+      - "SolidWorks: ensamblajes y relaciones de posición | Ensamblar y detectar interferencias"
+      - "SolidWorks: planos de fabricación | Generar planos listos para taller"
+      - "Integración semana 35: modela un soporte de motor | Pieza y plano completos"
+      - "GD&T: tolerancias geométricas | Especificar forma, orientación y posición"
+      - Uniones atornilladas | Dimensionar tornillos y precarga
+      - Uniones soldadas y adhesivas | Dimensionar cordones y pegados
+      - "Rodamientos: selección y vida L10 | Elegir rodamientos por catálogo"
+      - "Engranajes: cálculo a resistencia (Lewis y AGMA) | Dimensionar dientes a flexión y contacto"
+      - Transmisiones por correa y cadena | Seleccionar correas y cadenas
+      - "Integración semana 36: diseño de un reductor | Dimensionar un reductor de una etapa"
+      - Muelles y elementos elásticos | Dimensionar muelles helicoidales
+      - Diseño de ejes a fatiga | Aplicar Goodman a ejes reales
+      - "CATIA V5: Part Design y Generative Shape Design | Moverte con soltura en CATIA"
+      - "CATIA V5: superficies para aeronáutica | Modelar superficies de clase A"
+      - Diseño paramétrico y tablas de diseño | Crear familias de piezas
+      - Diseño para fabricación y ensamblaje (DFMA) | Reducir coste y número de piezas
+      - "Integración módulo 14: proyecto CAD de un mecanismo | Entregar un mecanismo completo"
+
+  - id: M15
+    phase: 2
+    title: Simulación estructural por elementos finitos
+    description: Teoría del MEF y práctica en SolidWorks Simulation y CalculiX/FreeCAD.
+    color: "#F2B400"
+    tools: [SolidWorks Simulation, FreeCAD FEM, CalculiX]
+    days:
+      - "Fundamentos del MEF: de la barra al sistema matricial | Montar a mano la matriz de rigidez"
+      - "Tipos de elemento: barras, vigas, láminas y sólidos | Elegir el elemento adecuado"
+      - "Mallado: tipos de elemento y calidad | Generar mallas fiables"
+      - Condiciones de contorno y cargas | Modelar apoyos y cargas sin errores
+      - Análisis estático lineal en SolidWorks Simulation | Ejecutar tu primer estudio
+      - Convergencia de malla y verificación | Saber cuándo un resultado es fiable
+      - "Integración semana 38: viga MEF frente a teoría | Validar MEF contra cálculo a mano"
+      - Análisis modal y frecuencias propias | Calcular modos de vibración
+      - Pandeo por MEF | Calcular factores de carga crítica
+      - "No linealidades: material, geometría y contacto | Saber cuándo un análisis lineal no basta"
+      - Análisis térmico y termo-estructural | Acoplar temperatura y tensión
+      - Fatiga con MEF | Estimar vida con resultados de simulación
+      - Optimización topológica | Aligerar piezas con optimización
+      - "Integración módulo 15: validación de un soporte por MEF | Informe de simulación completo"
+
+  - id: M16
+    phase: 2
+    title: Obras, montajes y proyectos de ingeniería
+    description: El proyecto técnico, normativa y marcado CE, planificación, presupuestos, estructuras metálicas, cimentaciones, izado, montaje y alineación, puesta en marcha, mantenimiento, fiabilidad y calidad.
+    color: "#F2B400"
+    tools: [MS Project o GanttProject, Excel, Normas UNE-EN, Eurocódigo 3]
+    days:
+      - "El proyecto de ingeniería: memoria, planos, pliego y presupuesto | Conocer los documentos de un proyecto"
+      - "Normativa: Directiva de Máquinas, marcado CE y normas UNE-EN ISO | Saber qué normas aplican a una máquina"
+      - "Planificación: Gantt, PERT y camino crítico | Planificar una obra o un montaje"
+      - Mediciones, presupuestos y costes de fabricación | Valorar económicamente un proyecto
+      - "Estructuras metálicas: perfiles y Eurocódigo 3 | Comprobar una viga y un pilar metálicos"
+      - "Uniones en obra: soldadura estructural y tornillería de alta resistencia | Especificar uniones de obra"
+      - "Integración semana 40: proyecto de una plataforma metálica | Calcular, planificar y presupuestar una estructura"
+      - Cimentaciones de máquinas y bancadas antivibratorias | Diseñar la base de una máquina
+      - "Elevación de cargas: grúas, eslingas y plan de izado | Planificar un izado seguro"
+      - "Montaje mecánico: nivelación y alineación de ejes | Alinear un motor con su máquina"
+      - Pares de apriete, secuencias y control de uniones | Montar uniones atornilladas críticas
+      - "Instalaciones industriales: tuberías, aire comprimido y fluidos | Dimensionar una instalación auxiliar"
+      - Prevención de riesgos laborales en obra y montaje | Evaluar riesgos y planificar la seguridad
+      - "Integración semana 41: plan de montaje de una máquina | Redactar el procedimiento completo"
+      - Puesta en marcha, pruebas y protocolo de recepción | Entregar una instalación funcionando
+      - "Mantenimiento: correctivo, preventivo y predictivo | Diseñar un plan de mantenimiento"
+      - Análisis de vibraciones y termografía | Diagnosticar averías antes de que ocurran
+      - "Fiabilidad: MTBF, Weibull y AMFE | Cuantificar y reducir el riesgo de fallo"
+      - "Calidad: ISO 9001 y control estadístico de procesos | Controlar la calidad de una fabricación"
+      - Gestión de proyectos, equipos y documentación técnica | Liderar un proyecto técnico
+      - "Integración módulo 16: examen de Obras, montajes y proyectos | Problemas mixtos de proyecto y montaje"
+
+  # ============================================================ FASE 3
+  - id: M17
+    phase: 3
+    title: Electricidad y circuitos
+    description: Circuitos DC y AC, potencia, trifásica, transformadores, protecciones y motores eléctricos.
+    color: "#FF5A5F"
+    tools: [Falstad, LTspice, Multímetro]
+    days:
+      - Carga, corriente, tensión y potencia | Dominar las magnitudes eléctricas
+      - Ley de Ohm y leyes de Kirchhoff | Resolver circuitos resistivos
+      - Análisis por mallas y nudos | Resolver circuitos de forma sistemática
+      - Thévenin, Norton y superposición | Simplificar circuitos
+      - Condensadores e inductores | Entender almacenamiento de energía
+      - Transitorios RC y RL | Calcular cargas y descargas
+      - "Integración semana 43: alimentación de un robot | Dimensionar batería, cableado y protecciones"
+      - "Corriente alterna: fasores e impedancia | Resolver circuitos AC"
+      - "Potencia en AC: activa, reactiva y factor de potencia | Calcular y corregir el factor de potencia"
+      - Sistemas trifásicos | Calcular tensiones y potencias trifásicas
+      - Transformadores | Calcular relaciones y pérdidas
+      - Motores de corriente continua | Relacionar par, velocidad y corriente
+      - Motores de inducción, paso a paso y brushless | Elegir el motor adecuado
+      - "Integración módulo 17: examen de Electricidad | Problemas mixtos eléctricos"
+
+  - id: M18
+    phase: 3
+    title: Electrónica analógica y digital
+    description: Diodos, transistores, amplificadores operacionales, lógica digital, conversión y PCB.
+    color: "#FF5A5F"
+    tools: [LTspice, KiCad, Protoboard]
+    days:
+      - Semiconductores y diodos | Usar diodos en circuitos
+      - Rectificadores y fuentes de alimentación | Diseñar una fuente lineal sencilla
+      - Transistores BJT y MOSFET como interruptor | Conmutar cargas con transistores
+      - Amplificadores operacionales | Diseñar amplificadores básicos
+      - Filtros analógicos | Diseñar filtros RC y activos
+      - Acondicionamiento de señal para sensores | Adaptar una señal al ADC
+      - "Integración semana 45: puente de Wheatstone y galgas | Medir deformación con electrónica"
+      - Sistemas numéricos y álgebra de Boole | Simplificar funciones lógicas
+      - Lógica combinacional | Diseñar decodificadores y multiplexores
+      - "Lógica secuencial: biestables y contadores | Diseñar máquinas de estados simples"
+      - Conversión ADC y DAC | Entender resolución y muestreo
+      - PWM y control de potencia | Controlar motores y LEDs con PWM
+      - Diseño de PCB básico con KiCad | Diseñar tu primera placa
+      - "Integración módulo 18: examen de Electrónica | Problemas mixtos de electrónica"
+
+  - id: M19
+    phase: 3
+    title: Mecatrónica · Microcontroladores, Raspberry Pi, sensores y actuadores
+    description: Arduino, C++, Raspberry Pi, comunicaciones, sensores, actuadores, visión, robótica y ROS 2.
+    color: "#FF5A5F"
+    tools: [Arduino, Raspberry Pi, C++, Python, OpenCV, ROS 2]
+    days:
+      - "Qué es la mecatrónica: arquitectura de un sistema | Descomponer un sistema en sensores, control y actuadores"
+      - "Arduino: entradas y salidas digitales | Leer pulsadores y activar salidas"
+      - "Arduino: entradas analógicas y PWM | Leer sensores analógicos y regular salidas"
+      - C y C++ para microcontroladores | Escribir firmware eficiente
+      - "Comunicaciones: UART, I2C y SPI | Conectar sensores digitales"
+      - "Sensores: posición, velocidad y aceleración (IMU) | Leer encoders e IMU"
+      - "Integración semana 47: estación de medida con Arduino | Registrar datos de varios sensores"
+      - "Sensores: fuerza, presión, temperatura y caudal | Medir magnitudes de proceso"
+      - "Actuadores: servos, paso a paso y drivers | Mover mecanismos con precisión"
+      - "Raspberry Pi: Linux, GPIO y Python | Controlar hardware desde Linux"
+      - "Raspberry Pi: adquisición y registro de datos | Construir un datalogger"
+      - Interrupciones, temporizadores y tiempo real | Garantizar tiempos de respuesta
+      - Visión artificial básica con OpenCV | Detectar objetos con una cámara
+      - "Integración semana 48: sistema de control con Raspberry Pi | Lazo sensor-decisión-actuador completo"
+      - "Comunicación IoT: MQTT y paneles | Enviar datos a un dashboard"
+      - "Robótica: cinemática directa de un brazo | Calcular la posición del efector"
+      - Cinemática inversa | Calcular ángulos articulares
+      - "ROS 2: conceptos básicos | Crear nodos, topics y servicios"
+      - Seguridad y fiabilidad en sistemas mecatrónicos | Diseñar paradas seguras y redundancias
+      - "Integración de sistemas: hardware y software | Depurar un sistema completo"
+      - "Integración módulo 19: proyecto mecatrónico | Entregar un dispositivo funcional"
+
+  - id: M20
+    phase: 3
+    title: Sistemas de control
+    description: Modelado, estabilidad, PID, lugar de las raíces, Bode y control digital.
+    color: "#FF5A5F"
+    tools: [python-control, Simulink (opcional), Arduino]
+    days:
+      - Lazo abierto y lazo cerrado | Entender la realimentación
+      - "Modelado: funciones de transferencia de sistemas físicos | Modelar motores y sistemas mecánicos"
+      - "Respuesta temporal: primer y segundo orden | Calcular sobreoscilación y tiempo de establecimiento"
+      - "Estabilidad: polos y criterio de Routh | Determinar si un sistema es estable"
+      - Errores en régimen permanente | Calcular errores según el tipo de sistema
+      - Control PID | Entender cada acción del PID
+      - "Integración semana 50: control de velocidad de un motor DC | Diseñar y simular el lazo"
+      - "Sintonía de PID: Ziegler-Nichols y práctica | Sintonizar un PID real"
+      - Lugar de las raíces | Diseñar con el lugar de las raíces
+      - "Respuesta en frecuencia: diagramas de Bode | Trazar e interpretar Bode"
+      - Márgenes de ganancia y de fase | Medir la robustez del control
+      - "Control digital: discretización | Pasar un controlador a tiempo discreto"
+      - Implementación de un PID en microcontrolador | Programar un PID robusto
+      - "Integración módulo 20: control de un balancín | Proyecto de control completo"
+
+  # ============================================================ FASE 4
+  - id: M21
+    phase: 4
+    title: Mecánica de fluidos
+    description: Hidrostática, ecuaciones de conservación, Bernoulli, análisis dimensional, flujo viscoso, capa límite y turbulencia.
+    color: "#7CFFB2"
+    tools: [Python, Diagrama de Moody]
+    days:
+      - "Propiedades de los fluidos: densidad, viscosidad y tensión superficial | Caracterizar un fluido"
+      - "Hidrostática: presión y manometría | Calcular presiones y medirlas"
+      - Fuerzas sobre superficies sumergidas | Calcular empujes sobre compuertas
+      - Flotación y estabilidad | Analizar cuerpos flotantes
+      - "Cinemática de fluidos: Euler, Lagrange y líneas de corriente | Describir un flujo"
+      - "Conservación de la masa: ecuación de continuidad | Aplicar continuidad"
+      - "Integración semana 52: compuerta y flotador | Integrar hidrostática"
+      - Ecuación de Bernoulli y sus límites | Aplicar Bernoulli con criterio
+      - "Aplicaciones de Bernoulli: Venturi, Pitot y toberas | Medir velocidad y caudal"
+      - "Cantidad de movimiento en volumen de control | Calcular fuerzas de chorros y empuje"
+      - Ecuación de la energía y pérdidas | Balance de energía en conductos
+      - Análisis dimensional y teorema Pi de Buckingham | Obtener grupos adimensionales
+      - "Semejanza y ensayos con modelos: Reynolds, Mach y Froude | Escalar ensayos"
+      - "Integración semana 53: dimensionado de un túnel de viento | Diseñar un túnel didáctico"
+      - "Flujo viscoso en conductos: laminar y turbulento | Distinguir regímenes"
+      - "Pérdidas de carga: Moody y Colebrook | Calcular pérdidas en tuberías"
+      - Redes de tuberías y bombas | Seleccionar bombas y punto de funcionamiento
+      - "Ecuaciones de Navier-Stokes: deducción | Entender cada término"
+      - "Soluciones exactas: Couette y Poiseuille | Resolver flujos viscosos sencillos"
+      - "Capa límite: concepto y espesores | Calcular espesores de capa límite"
+      - "Integración semana 54: sistema de tuberías con bomba | Diseñar una instalación"
+      - "Capa límite laminar (Blasius) y turbulenta | Estimar fricción superficial"
+      - Separación de la capa límite y gradiente de presión | Predecir desprendimiento
+      - "Resistencia aerodinámica: fricción y forma | Descomponer la resistencia"
+      - "Turbulencia: naturaleza, escalas y cascada de energía | Entender Kolmogorov"
+      - Promediado de Reynolds (RANS) y viscosidad turbulenta | Entender el problema de cierre
+      - "Flujo compresible: velocidad del sonido y número de Mach | Saber cuándo importa la compresibilidad"
+      - "Integración módulo 21: examen de Mecánica de fluidos | Problemas mixtos de fluidos"
+
+  - id: M22
+    phase: 4
+    title: Aerodinámica y mecánica de vuelo
+    description: Atmósfera, perfiles, alas finitas, flujo compresible, actuaciones, estabilidad y propulsión.
+    color: "#7CFFB2"
+    tools: [XFOIL, XFLR5, Python]
+    days:
+      - Atmósfera estándar internacional (ISA) | Calcular propiedades a cualquier altitud
+      - "Perfiles aerodinámicos: geometría y nomenclatura NACA | Leer y generar perfiles NACA"
+      - "Sustentación: circulación y teorema de Kutta-Joukowski | Entender de dónde sale la sustentación"
+      - Coeficientes CL, CD, CM y curvas polares | Leer polares de perfiles
+      - Teoría del perfil delgado | Calcular CL y CM teóricos
+      - Métodos de paneles y XFOIL | Analizar perfiles con XFOIL
+      - "Integración semana 56: analiza un perfil NACA con XFOIL | Obtener y comparar polares"
+      - "Alas finitas: resistencia inducida y alargamiento | Calcular la resistencia inducida"
+      - Teoría de la línea sustentadora de Prandtl | Calcular distribución de sustentación
+      - Dispositivos hipersustentadores | Entender flaps y slats
+      - "Flujo compresible: ondas de choque y de expansión | Calcular saltos a través de choques"
+      - Toberas y flujo supersónico | Diseñar una tobera convergente-divergente
+      - Aerodinámica transónica y alas en flecha | Entender el Mach crítico
+      - "Integración semana 57: diseño preliminar de un ala | Dimensionar un ala completa"
+      - "Actuaciones: empuje, potencia y planeo | Calcular velocidades características"
+      - "Despegue, aterrizaje y alcance (Breguet) | Calcular alcance y autonomía"
+      - Estabilidad estática longitudinal | Calcular margen estático
+      - Superficies de control y estabilidad lateral-direccional | Entender la controlabilidad
+      - "Propulsión: hélices y turbofanes | Calcular empuje y rendimiento propulsivo"
+      - Aerodinámica de drones y multirrotores | Dimensionar un dron
+      - "Integración módulo 22: examen de Aerodinámica | Problemas mixtos de aerodinámica"
+
+  - id: M23
+    phase: 4
+    title: Dinámica de fluidos computacional (CFD)
+    description: Volúmenes finitos, mallado, turbulencia, OpenFOAM, ANSYS Fluent, validación y casos aeronáuticos e hidrodinámicos.
+    color: "#7CFFB2"
+    tools: [OpenFOAM, ParaView, ANSYS Fluent (Student), SimScale, Python]
+    days:
+      - "¿Qué es la CFD? Flujo de trabajo completo | Conocer pre-proceso, solver y post-proceso"
+      - Ecuaciones de gobierno en forma conservativa | Escribir las ecuaciones que resuelve un solver
+      - "Discretización: diferencias finitas frente a volúmenes finitos | Entender por qué se usa FVM"
+      - "Volúmenes finitos: difusión 1D | Discretizar y resolver a mano"
+      - "Volúmenes finitos: convección-difusión y esquemas | Elegir esquemas de interpolación"
+      - "Acoplamiento presión-velocidad: SIMPLE y PISO | Entender los algoritmos de solución"
+      - "Integración semana 59: solver FVM 1D en Python | Programar y validar un solver"
+      - "Mallado: estructurado, no estructurado e híbrido | Elegir la estrategia de malla"
+      - "Calidad de malla: skewness, ortogonalidad y aspect ratio | Evaluar una malla"
+      - Mallado de capa límite e y+ | Dimensionar la primera celda
+      - Condiciones de contorno en CFD | Elegir condiciones físicamente correctas
+      - "Modelos de turbulencia: k-ε | Entender y usar k-ε"
+      - "Modelos de turbulencia: k-ω SST y Spalart-Allmaras | Elegir el modelo aeronáutico adecuado"
+      - "Integración semana 60: elige malla y modelo para un caso | Justificar el setup de una simulación"
+      - "OpenFOAM: instalación y estructura de un caso | Montar tu entorno OpenFOAM"
+      - "OpenFOAM: cavidad con icoFoam paso a paso | Ejecutar tu primera simulación"
+      - "ParaView: post-procesado | Extraer resultados profesionales"
+      - "OpenFOAM: blockMesh y snappyHexMesh | Mallar geometrías reales"
+      - "OpenFOAM: simpleFoam en un perfil NACA | Simular un perfil 2D"
+      - Validación con datos experimentales | Comparar con datos de túnel
+      - "Integración semana 61: NACA 0012 frente a datos experimentales | Validar CL y CD"
+      - Convergencia, residuos e independencia de malla | Demostrar que un resultado es fiable
+      - Verificación, validación e incertidumbre | Aplicar V&V
+      - "Flujo transitorio: desprendimiento de vórtices | Simular una calle de Kármán"
+      - Flujo compresible en CFD | Simular flujo transónico
+      - Transferencia de calor conjugada | Simular fluido y sólido acoplados
+      - "ANSYS Fluent: flujo de trabajo completo | Hacer un caso completo en Fluent"
+      - "Integración semana 62: caso completo en Fluent o SimScale | Informe de un caso industrial"
+      - "Flujo multifásico (VOF): superficies libres | Simular una superficie libre"
+      - "Hidrodinámica: quillas e hidroalas | Simular un perfil en agua y vigilar la cavitación"
+      - "Mallas móviles y rotores (MRF y sliding mesh) | Simular hélices y rotores"
+      - Introducción a LES y DNS | Saber cuándo RANS no basta
+      - Optimización aerodinámica con CFD | Automatizar estudios paramétricos
+      - Acoplamiento fluido-estructura (FSI) básico | Acoplar CFD y MEF
+      - "Integración módulo 23: informe CFD profesional | Entregar un informe CFD de nivel industrial"
+
+  # ============================================================ FASE 5
+  - id: M24
+    phase: 5
+    title: Proyecto final integrador
+    description: "Un proyecto real de principio a fin: dron, ala, hidroala, banco de ensayos o túnel de viento instrumentado."
+    color: "#B98CFF"
+    tools: [SolidWorks o CATIA, OpenFOAM o Fluent, SolidWorks Simulation, Raspberry Pi, Impresora 3D, Git]
+    days:
+      - "Definición del proyecto: necesidad, requisitos y alcance | Fijar qué vas a construir y por qué"
+      - Planificación, presupuesto y riesgos | Hacer el Gantt y el presupuesto del proyecto
+      - Diseño conceptual y matriz de decisión | Elegir el concepto con criterios objetivos
+      - Cálculos preliminares a mano | Prediseñar con las fórmulas del programa
+      - Mecanismos y cinemática del diseño | Analizar el movimiento de las partes móviles
+      - CAD detallado | Modelar el diseño completo
+      - "Integración semana 64: revisión de diseño preliminar (PDR) | Defender el diseño ante un revisor"
+      - Simulación CFD del componente | Obtener cargas aerodinámicas o hidrodinámicas
+      - Simulación estructural por MEF | Validar resistencia y rigidez
+      - "Electrónica y control: banco de ensayo con Raspberry Pi | Instrumentar el ensayo"
+      - Planos de fabricación y plan de montaje | Preparar fabricación y montaje
+      - Fabricación, montaje y puesta a punto | Construir el prototipo
+      - Ensayos y comparación con la simulación | Validar el diseño con datos reales
+      - "Defensa final: memoria técnica y retrospectiva | Defender el proyecto: ¡Verdadero Ingeniero!"

@@ -1,0 +1,23 @@
+name: verdadero_ingeniero
+description: "Verdadero Ingeniero: formación diaria con exámenes adaptativos para convertirte en un ingeniero completo."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Backend: autenticación, base de datos y funciones RPC
+  supabase_flutter: ^2.16.0
+  # Markdown + fórmulas LaTeX \( … \) y \[ … \] en las lecciones
+  gpt_markdown: ^1.4.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
