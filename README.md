@@ -65,11 +65,14 @@ tools/
 
 ## 🚀 Puesta en marcha
 
-### Opción A · Sin instalar nada: descarga la app compilada
-Cada push a `main` compila la app en GitHub. Ve a la pestaña **Actions** del repositorio → última ejecución → **Artifacts**:
-- `verdadero-ingeniero-android-apk` → instálalo en tu móvil (permite "orígenes desconocidos").
-- `verdadero-ingeniero-windows` → descomprime y ejecuta `verdadero_ingeniero.exe`.
-- `verdadero-ingeniero-web` → súbelo a cualquier hosting estático.
+### Opción A · Sin instalar nada
+**Versión web (ordenador y móvil):** https://abelolivalopez-sketch.github.io/verdadero-ingeniero/
+En el móvil, ábrela en Chrome → menú ⋮ → *Añadir a pantalla de inicio* y funciona como una app.
+(Configuración necesaria una sola vez: *Settings → Pages → Build and deployment → Source: **GitHub Actions***).
+
+**Apps nativas:** cada push a `main` las compila. Pestaña **Actions** → última ejecución → **Artifacts**:
+- `verdadero-ingeniero-android-apk` → descomprime e instala el `.apk` en tu móvil (permite "instalar apps desconocidas").
+- `verdadero-ingeniero-windows` → descomprime y ejecuta `verdadero_ingeniero.exe` (deja todos los archivos de la carpeta juntos).
 
 ### Opción B · Desarrollo en tu ordenador
 1. Instala [Flutter](https://docs.flutter.dev/get-started/install) (canal estable) y, para Android, Android Studio.

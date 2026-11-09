@@ -181,7 +181,7 @@ class _ScoreChart extends StatelessWidget {
           child: Row(children: [
             Expanded(child: Container(height: 1, color: AppColors.gold.withValues(alpha: 0.7))),
             const SizedBox(width: 4),
-            Text('${AppConfig.passThreshold} %', style: const TextStyle(fontSize: 10, color: AppColors.gold)),
+            const Text('${AppConfig.passThreshold} %', style: TextStyle(fontSize: 10, color: AppColors.gold)),
           ]),
         ),
         Positioned.fill(

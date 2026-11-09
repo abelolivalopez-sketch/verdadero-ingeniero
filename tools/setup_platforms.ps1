@@ -16,7 +16,19 @@ $xml = $xml -replace 'android:label="verdadero_ingeniero"', 'android:label="Verd
 if (Test-Path "web/index.html") {
   $html = Get-Content "web/index.html" -Raw
   $html = $html -replace '<title>verdadero_ingeniero</title>', '<title>Verdadero Ingeniero</title>'
+  $html = $html -replace 'content="verdadero_ingeniero"', 'content="Verdadero Ingeniero"'
   [System.IO.File]::WriteAllText((Resolve-Path "web/index.html"), $html)
+}
+if (Test-Path "web/manifest.json") {
+  $mf = Get-Content "web/manifest.json" -Raw
+  $mf = $mf -replace '"name": "verdadero_ingeniero"', '"name": "Verdadero Ingeniero"'
+  $mf = $mf -replace '"short_name": "verdadero_ingeniero"', '"short_name": "Ingeniero"'
+  [System.IO.File]::WriteAllText((Resolve-Path "web/manifest.json"), $mf)
+}
+
+# flutter create genera un test de ejemplo que no aplica a esta app
+if ((Test-Path "test/widget_test.dart") -and (Select-String -Path "test/widget_test.dart" -Pattern "MyApp" -Quiet)) {
+  Remove-Item "test/widget_test.dart"
 }
 
 flutter pub get

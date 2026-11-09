@@ -1,12 +1,22 @@
-# Compila la app automáticamente en cada push a main.
-# Descarga el APK, la web o el ejecutable de Windows desde la pestaña "Actions" del repositorio
-# (entra en la última ejecución → sección "Artifacts").
+# Compila y publica la app automáticamente en cada push a main.
+#  · Web: se publica en GitHub Pages → https://abelolivalopez-sketch.github.io/verdadero-ingeniero/
+#    (requiere una vez: Settings → Pages → Build and deployment → Source: "GitHub Actions")
+#  · Android (APK) y Windows: descárgalos en Actions → última ejecución → "Artifacts".
 name: Compilar app
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: compilar-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   contenido:
@@ -22,8 +32,36 @@ jobs:
       - run: python tools/verify_numeric.py
       - run: python tools/run_workshop_code.py
 
-  android-web:
-    name: Android + Web
+  web:
+    name: Web (análisis, tests y compilación)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: bash tools/setup_platforms.sh
+      - run: flutter analyze --no-fatal-infos --no-fatal-warnings
+      - run: flutter test
+      - run: flutter build web --release --base-href /verdadero-ingeniero/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  publicar-web:
+    name: Publicar web en GitHub Pages
+    needs: web
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  android:
+    name: Android (APK)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,18 +74,11 @@ jobs:
           channel: stable
           cache: true
       - run: bash tools/setup_platforms.sh
-      - run: flutter analyze --no-fatal-infos --no-fatal-warnings
-      - run: flutter test
       - run: flutter build apk --release
-      - run: flutter build web --release
       - uses: actions/upload-artifact@v4
         with:
           name: verdadero-ingeniero-android-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-      - uses: actions/upload-artifact@v4
-        with:
-          name: verdadero-ingeniero-web
-          path: build/web
 
   windows:
     name: Windows
